@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.kzz.blog.mapper.ArticleMapper">
+
+
+    <insert id="addArticle" useGeneratedKeys="true" keyProperty="uid">
+        insert into article(title, mainBody, classname, tag,draft, createdDate,isDelete,username) values(#{title},#{mainBody}, #{classname}, #{tag},#{draft},#{createdDate},#{isDelete},#{username})
+    </insert>
+    <insert id="addClass" useGeneratedKeys="true" keyProperty="id">
+        insert into class(name, count) values(#{name},#{count})
+    </insert>
+    <insert id="addTag" useGeneratedKeys="true" keyProperty="id">
+        insert into tag(name, count) values(#{name},#{count})
+    </insert>
+    <select id="findArticle" resultType="com.kzz.blog.entity.Article">
+        select * from article where uid=#{uid}
+    </select>
+    <select id="findTag" resultType="com.kzz.blog.entity.Tag">
+        select * from  tag where name=#{name}
+    </select>
+    <select id="findClass" resultType="com.kzz.blog.entity.Class1">
+        select * from class where name=#{name}
+    </select>
+    <select id="finddraft" resultType="com.kzz.blog.entity.Article">
+        select * from article where username=#{username} and draft=1
+    </select>
+    <select id="countDraft" resultType="java.lang.Integer">
+        select count(*) from article where username=#{username} and draft=1
+    </select>
+    <select id="findAllArticle" resultType="com.kzz.blog.entity.Article">
+        select * from article where draft =0 and isDelete =0 order by createdDate desc
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*) from article
+    </select>
+    <update id="updateClass">
+        update class set count=count+1 where name=#{name}
+    </update>
+    <update id="updateTag">
+        update tag set count=count+1 where name=#{name}
+    </update>
+    <delete id="deleteDraft">
+        delete from article where uid=#{uid}
+    </delete>
+    <update id="deleteClass">
+        update class set count=count-1 where name=#{name}
+    </update>
+    <update id="deleteTag">
+        update tag set count=count-1 where name=#{name}
+    </update>
+    <delete id="deleteTag1">
+        delete from tag where count=0
+    </delete>
+    <delete id="deleteClass1">
+        delete from class where count=0
+    </delete>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- namespace：对应哪个接口 -->
+<mapper namespace="com.kzz.blog.mapper.UserMapper">
+
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="uid">
+		insert into user(username, password,phone,avatar, is_delete,email)
+		values(#{username},#{password},#{phone},#{avatar},0,#{email})
+	</insert>
+	<insert id="insertUserDoc">
+		insert into doc(uid,email) values (#{uid},#{email})
+	</insert>
+
+
+	<select id="findByUsername" resultType="com.kzz.blog.entity.User">
+		select * from user where username=#{username}
+	</select>
+
+
+	<update id="changePassword">
+		update user set password=#{password} where uid=#{uid}
+	</update>
+    <update id="uploadAvatar">
+		UPDATE user
+    SET
+        avatar=#{avatar},
+    WHERE
+        uid=#{uid}
+	</update>
+	<select id="forgotPassword" resultType="java.lang.Integer">
+		select uid from user where (email=#{email} or phone=#{phone}) and username=#{username}
+	</select>
+	<select id="selectByUid" resultType="java.lang.String">
+		select username from user where uid=#{uid}
+	</select>
+
+
+</mapper>
+
+
+
+
+
+

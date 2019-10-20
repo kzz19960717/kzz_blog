@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.kzz.blog.mapper.DocMapper">
+        <update id="updateDoc" >
+            update doc set name=#{name},
+            openEmail=#{openEmail},github=#{github},weibo=#{weibo},
+            userHomePage=#{userHomePage},instructor=#{instructor} where
+            uid=#{uid}
+        </update>
+    <select id="selectDoc" resultType="com.kzz.blog.entity.Doc">
+        select * from k_blog.doc where uid=#{uid}
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.kzz.blog.mapper.ClassAndTagMapper" >
+    <resultMap id="tagMap" type="com.kzz.blog.entity.Tag">
+        <result column="name" property="name" />
+        <result column="count" property="count" />
+    </resultMap>
+    <resultMap id="classMap" type="com.kzz.blog.entity.Class1">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="count" property="count" />
+    </resultMap>
+    <select id="findAllClass" resultMap="classMap">
+        select name,count from class
+    </select>
+    <select id="findAllTag" resultMap="tagMap">
+        select name,count from tag
+    </select>
+    <select id="findClassCount" resultType="java.lang.Integer">
+        select count(*) from class
+    </select>
+    <select id="findTagCount" resultType="java.lang.Integer">
+        select count(*) from tag
+    </select>
+</mapper>
