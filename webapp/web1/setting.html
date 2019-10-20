@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../stylesheets/application.css">
+    <title>Milog</title>
+    <style type="text/css">
+        #changePasswordSpan{
+            color : red;
+            margin-left: 15px;
+            top : 40px;
+            margin-top: 40px;
+        }
+        #changeDocSpan{
+            color : red;
+            margin-left: 15px;
+            top : 40px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- 导航栏首部 -->
+            <div class="navbar-header">
+                <!-- Logo -->
+                <a href="../home/home.do" class="navbar-brand">
+                    <img class="logo" src="../images/logo.png" alt="Milog">
+                </a>
+                <!-- 切换语系  屏幕<=420px时隐藏-->
+                <a class="navbar-text switch-lang" href="#">EN</a>
+                <!-- 展开菜单项Btn -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse-nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- 下拉菜单项 小屏时不显示 -->
+            <ul class="nav navbar-nav navbar-right navbar-footer drop-nav">
+                <!-- 新建类操作菜单 -->
+                <li class="dropdown dropdown-opt">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/home/edit_post.do">写文章</a></li>
+                    </ul>
+                </li>
+                <!-- 设置类操作菜单 -->
+                <li class="dropdown dropdown-setting">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <div id="setAvatar" class="default-avatar"></div>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" th:text="${inUsername}">Kumho</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li><a href="../home/setting.do">个人资料设置</a></li>
+                        <li><a href="../home/drafts.do">草稿箱</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li><a id="logout" href="#">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- 登录注册 -->
+            <div class="navbar-right navbar-footer login-group" style="display: none;">
+                <a class="navbar-text" href="../home/signin.do">登录</a>
+            </div>
+            <!-- 主菜单项 -->
+            <div class="collapse navbar-collapse" id="collapse-nav">
+                <ul class="nav navbar-nav navbar-center main-nav">
+                    <li><a href="../home/home.do">首页</a></li>
+                    <li><a href="../home/category.do">分类</a></li>
+                    <li><a href="../home/archive.do">归档</a></li>
+                    <li><a href="../home/aboutme.do">关于</a></li>
+                    <li><a href="#">搜索</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 内容区域 -->
+    <div class="mainer" style="margin-top: 0; padding-top: 20px;">
+        <div class="container-fluid">
+            <!-- 居中 -->
+            <div class="col-md-10 col-center-block content-wrap">
+                <div id="content">
+                    <!-- 用户信息设置 -->
+                    <div class="col-md-8 profile-setting">
+                        <div class="boxed-group">
+                            <h3> 个人资料设置 </h3>
+                            <div class="boxed-group-inner">
+                                <form id="doc-form" accept-charset="utf-8">
+                                    <div class="form-group">
+                                        <span>名字</span>
+                                        <input class="form-control form-input-normal" th:value="${name}" type="text" name="name" id="user_profile_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Email</span>
+                                        <input class="form-control form-input-normal" type="email" th:value="${email}" disabled="disabled" name="email" id="user_email" value="hi.jinhu.zhang@gmail.com">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <div class="checkbox" >
+                                            <label for="user_email_public">
+                                                <input type="checkbox" value="1" th:value="${openEmail}" checked="checked" name="openEmail" id="user_email_public"> 公开Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Github</span>
+                                         <div class="input-group">
+                                         		<span class="input-group-addon">https://github.com/</span>
+                                         	   <input class="form-control form-input-normal" type="text" name="github" th:value="${github}" id="user_github" placeholder="账号">
+                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>微博</span>
+                                         <div class="input-group">
+                                         		<span class="input-group-addon">https://weibo.com/</span>
+                                         	   <input class="form-control form-input-normal" type="text" th:value="${weibo}" name="weibo" id="user_weibo" placeholder="账号">
+                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>个人主页</span>
+                                        <input class="form-control form-input-normal"  type="text" name="userHomePage" th:value="${userHomePage}" id="user_website">
+                                    </div>
+                                    <div class="form-group" style="height: 150px;">
+                                        <span>个人介绍</span>
+                                        <textarea class="form-control form-input-normal" type="text" name="instructor" id="user_bio" th:text="${instructor}" style="height: 150px;"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                    			<button class="btn btn-primary  submit" id="btn-changeDoc" data-style="slide-up" type="button" >更新资料</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 密码与头像设置 -->
+                    <div class="col-md-4 account-setting">
+                        <div class="boxed-group">
+                            <div class="boxed-group-inner boxed-group-round-border">
+                                <a href="#" ><span class="default-avatar-normal" >K</span></a>
+                                <div class="avatar-upload">
+                                    <form method="post" id="avatar-form" enctype="multipart/form-data">
+                                		<span class="btn avatar-btn" id="upload-avatar-btn">上传头像</span>
+                                        <input id="upload-avatar-input" type="file" style="visibility: hidden; position: absolute;">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="boxed-group">
+                            <h3> 修改密码 </h3>
+                            <div class="boxed-group-inner boxed-group-round-border">
+                                <form action="post" id="form-changePassword">
+                                		<div class="form-group">
+                                        <span>旧密码</span>
+                                        <input class="form-control form-input-normal" type="password" name="oldPassword" id="user_current_password">
+                                    </div>
+                                		<div class="form-group">
+                                        <span>密码</span>
+                                        <input class="form-control form-input-normal" type="password" name="newPassword" id="user_password">
+                                    </div>
+                                		<div class="form-group">
+                                        <span>确认密码</span>
+                                        <input class="form-control form-input-normal" type="password"  id="user_password_confirmation">
+                                    </div>
+                                    <div class="form-group">
+                                    			<button id="btn-changePassword" class="btn btn-primary  submit" data-style="slide-up" type="button" >修改密码</button>
+                                    </div>                                   
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer id="footer" class="text-muted">
+        <div class="container">
+            <span class="site-footer-info">  © 2016 hikumho. Powered by Rails. </span>
+            <span class="site-footer-links">
+	  				<a href="https://github.com/kzz19960717/kzz_blog">Github</a> |
+	  				<a href="mailto:hi.jinhu.zhang@gmail.com">Email</a>
+	  			</span>
+        </div>
+    </footer>
+    <!-- 返回页面顶部 -->
+    <div class="back-to-top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </div>
+
+    <!-- 页面框架 -->
+    <script src="../lib/javascripts/jquery-3.1.1.min.js"></script>
+    <script src="../lib/javascripts/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../lib/javascripts/bootstrap.min.js"></script>
+    <script src="../lib/javascripts/velocity.min.js"></script>
+    <script src="../lib/javascripts/tabIndent.js"></script>
+    <!-- 自定义 -->
+    <script src="../javascripts/application.js"></script>
+    <script src="../javascripts/setting.js"></script>
+    <script type="text/javascript">
+        $("#btn-changePassword").click(function() {
+            $.ajax({
+                "url":"../user/changePassword.do",
+                "data":$("#form-changePassword").serialize(),
+                "type":"POST",
+                "dataType":"json",
+                "success":function(json) {
+                    $("#changePasswordSpan").hide();
+                    if (json.state == 2000) {
+                        $("#btn-changePassword").after("<span id='changePasswordSpan'>"+"修改成功"+"</span>");
+                    } else {
+                        $("#btn-changePassword").after("<span id='changePasswordSpan'>"+json.message+"</span>");
+                    }
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("#btn-changeDoc").click(function() {
+            $.ajax({
+                "url":"../user/handle_doc.do",
+                "data":$("#doc-form").serialize(),
+                "type":"POST",
+                "dataType":"json",
+                "success":function(json) {
+                    $("#changeDocSpan").hide();
+                    if (json.state == 2000) {
+                        $("#btn-changeDoc").after("<span id='changeDocSpan'>"+"修改成功"+"</span>");
+                    } else {
+                        $("#btn-changeDoc").after("<span id='changeDocSpan'>"+json.message+"</span>");
+                    }
+                }
+            });
+        });
+        $(document).ready(function() {
+            // 尝试从Cookie中取出头像数据并显示
+            let avatar = $.cookie("avatar");
+            console.log("document-ready-avatar=" + avatar);
+            if (avatar != null) {
+                $("#setAvatar").append("<img id='img-avatar'width='25px' height='25px'>");
+                $("#img-avatar").attr("src", avatar);
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link rel="stylesheet" href="../stylesheets/application.css">
+
+	<title>Milog</title>
+</head>
+<body class="archives">
+	<!-- 导航栏 -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- 导航栏首部 -->
+			<div class="navbar-header">
+			    <!-- Logo -->
+					<a href="../home/home.do" class="navbar-brand">
+						 <img class="logo" src="../images/logo.png" alt="Milog">
+					</a>
+					<!-- 切换语系  屏幕<=420px时隐藏-->
+					<a class="navbar-text switch-lang" href="#">EN</a>
+					<!-- 展开菜单项Btn -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse-nav">
+	  			  <span class="icon-bar"></span>
+	  			  <span class="icon-bar"></span>
+	  			  <span class="icon-bar"></span>
+	  			</button>
+			</div>
+
+			<!-- 下拉菜单项 小屏时不显示 -->
+			<ul class="nav navbar-nav navbar-right navbar-footer drop-nav" >
+				<!-- 新建类操作菜单 -->
+				<li class="dropdown dropdown-opt">
+					 	<a class="dropdown-toggle" data-toggle="dropdown" role="button" >
+					 		<span class="glyphicon glyphicon-plus"></span>
+        			<span class="caret"></span>
+        		</a>
+			      <ul class="dropdown-menu">
+			        	<li><a href="../home/edit_post.do">写文章</a></li>
+			      </ul>
+				</li>
+				<!-- 设置类操作菜单 -->
+				<li class="dropdown dropdown-setting">
+					 	<a class="dropdown-toggle" data-toggle="dropdown" role="button" >
+					 		<div class="default-avatar" >K</div>
+        			<span class="caret"></span>
+        		</a>
+			      <ul class="dropdown-menu">
+			        	<li><a th:text="${inUsername}" href="#">Kumho</a></li>
+			          <li><div class="divider"></div></li>
+			          <li><a href="../home/setting.do">个人资料设置</a></li>
+			          <li><a href="../home/drafts.do">草稿箱</a></li>
+			          <li><div class="divider"></div></li>
+								<li><a id="logout" href="#">退出</a></li>
+			      </ul>
+				</li>
+			</ul>
+		
+			<!-- 登录注册 -->
+			<div class="navbar-right navbar-footer login-group" style="display: none;">
+				<a class="navbar-text" href="../home/signin.do">登录</a>
+			</div>
+			
+			<!-- 主菜单项 -->
+			<div class="collapse navbar-collapse" id="collapse-nav">
+					<ul class="nav navbar-nav navbar-center main-nav">
+						<li><a href="../home/home.do">首页</a></li>
+						<li><a href="../home/category.do">分类</a></li>
+						<li><a href="../home/archive.do">归档</a></li>
+						<li><a href="../home/aboutme.do">关于</a></li>
+						<li><a href="#">搜索</a></li>
+					</ul>
+			</div>
+
+		</div>
+	</nav>
+
+	<!-- 内容区域 -->
+	<div class="mainer">
+		<div class="container-fluid">
+			<!-- 居中 -->
+			<div class="col-md-7 col-center-block content-wrap" >
+					<section class="posts-collection-expand" id="posts-collection">
+							<!-- 归档数量 -->
+							<span class="archive-move-on"></span>
+							<span class="archive-page-counter" th:text="'目前共有 '+${count}+' 篇文章'"> 目前共有 43 篇文章 </span>
+
+							<!-- 归档标题 -->
+							<div class="collection-title" >
+								<h2>2019<span class="type"></span></h2>
+							</div>
+
+							<!-- 一篇文章 -->
+							<article class="post" th:each="article:${one}">
+								github
+							</article>
+
+							<!-- 一篇文章 -->
+							<article class="post" th:remove="all">
+								<header class="post-header">
+										<h1 class="post-title">
+											<a href="#" class="post-title-link-no-underline">Linux 服务器篇 远端连接服务器SSH</a>
+										</h1>
+									  <div class="post-meta"><time class="post-time">09-09</time></div>
+								</header>
+							</article>
+
+							<!-- 一篇文章 -->
+							<article class="post" th:remove="all">
+								<header class="post-header">
+										<h1 class="post-title">
+											<a href="#" class="post-title-link-no-underline">Linux 服务器篇 申请合法的主机名称</a>
+										</h1>
+									  <div class="post-meta"><time class="post-time">09-09</time></div>
+								</header>
+							</article>
+					</section>
+
+					<!-- 分页栏 -->
+					<nav class="pagination">
+							<span class="page-number current">1</span>
+							<a class="page-number" href="../home/archive2.do">2</a>
+							<a class="page-number" href="../home/archive3.do">3</a>
+							<a class="page-number" href="../home/archive4.do">4</a>
+							<a class="page-number" href="../home/archive5.do">5</a>
+							<a class="page-number" href="../home/archive6.do">6</a>
+							<a class="page-number" href="../home/archive7.do">7</a>
+							<a class="page-number" href="../home/archive8.do">8</a>
+							<a class="page-number" href="#">></a>
+					</nav>					
+			</div>
+		</div>
+	</div>
+
+  <!-- footer -->
+  <footer id="footer" class="text-muted">
+	  	<div class="container">
+	  			<span class="site-footer-info">  © 2016 hikumho. Powered by Rails. </span>
+	  			<span class="site-footer-links">
+	  				<a href="https://github.com/kzz19960717/kzz_blog">Github</a> |
+	  				<a href="mailto:hi.jinhu.zhang@gmail.com">Email</a>
+	  			</span>
+	  	</div>
+	</footer>
+
+	<!-- 返回页面顶部 -->
+	<div class="back-to-top">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</div>
+
+
+	<script src="../lib/javascripts/jquery-3.1.1.min.js"></script>
+	<script src="../lib/javascripts/bootstrap.min.js"></script>
+	<script src="../lib/javascripts/velocity.min.js"></script>
+	<script src="../javascripts/application.js"></script>
+	<script src="../javascripts/archive.js"></script>
+	<SCRIPT src="../lib/javascripts/jquery.cookie.js"></SCRIPT>
+
+</body>
+</html>
